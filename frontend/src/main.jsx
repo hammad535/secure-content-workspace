@@ -5,7 +5,7 @@ import router from './router';
 import useAuthStore from './store/authStore';
 import './index.css';
 
-// Initialize auth state
+// Initialize auth state synchronously before render
 useAuthStore.getState().initialize();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
