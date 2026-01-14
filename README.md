@@ -261,6 +261,70 @@ Ensure MySQL is running and the database `secure_content_workspace` exists with 
 - [ ] Pagination works correctly
 - [ ] Rich text editor saves content properly
 
+## Deployment
+
+### Production Deployment
+
+The application is configured for production deployment on:
+
+- **Frontend**: Vercel
+- **Backend**: Render
+- **Database**: MySQL (cloud-hosted)
+
+### Backend Deployment (Render)
+
+1. **Create a new Web Service** on Render
+2. **Connect your GitHub repository**
+3. **Configure environment variables**:
+   ```
+   PORT=5000
+   DATABASE_URL=mysql://user:password@host:port/database
+   JWT_SECRET=your_secure_jwt_secret_here
+   JWT_EXPIRES_IN=1h
+   FRONTEND_URL=https://your-frontend.vercel.app
+   ```
+4. **Build Command**: `npm install && npm run build`
+5. **Start Command**: `npm start`
+6. **Run migrations**: After first deployment, run `npx prisma migrate deploy` in Render's shell
+
+### Frontend Deployment (Vercel)
+
+1. **Import your GitHub repository** to Vercel
+2. **Set root directory** to `frontend`
+3. **Configure environment variables**:
+   ```
+   VITE_API_URL=https://your-backend.onrender.com
+   ```
+4. **Build settings**:
+   - Framework: React (Vite)
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+5. **Deploy**
+
+### Environment Variables
+
+#### Backend (Render)
+- `PORT` - Server port (default: 5000)
+- `DATABASE_URL` - MySQL connection string
+- `JWT_SECRET` - Secret key for JWT tokens
+- `JWT_EXPIRES_IN` - Token expiration time
+- `FRONTEND_URL` - Frontend URL for CORS
+
+#### Frontend (Vercel)
+- `VITE_API_URL` - Backend API URL
+
+### Post-Deployment Verification
+
+After deployment, verify:
+- [ ] User registration works
+- [ ] Login and JWT authentication works
+- [ ] RBAC permissions are enforced
+- [ ] Admin can delete articles
+- [ ] Editor can edit own articles only
+- [ ] Viewer is read-only
+- [ ] No CORS errors
+- [ ] API calls work from frontend
+
 ## Future Enhancements
 - Unit and integration tests
 - Docker containerization
