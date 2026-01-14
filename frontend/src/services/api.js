@@ -29,11 +29,10 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       const token = localStorage.getItem('token');
       if (token) {
+        console.warn('Received 401 response with valid token. Token may be expired or invalid.');
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        if (window.location.pathname !== '/login') {
-          window.location.href = '/login';
-        }
+        useAuthStore.getState().logout();
       }
     }
     return Promise.reject(error);
