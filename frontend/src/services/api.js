@@ -1,4 +1,5 @@
 import axios from 'axios';
+import useAuthStore from '../store/authStore';
 
 if (!import.meta.env.VITE_API_URL) {
   throw new Error('VITE_API_URL is not defined. Production build cannot continue.');
