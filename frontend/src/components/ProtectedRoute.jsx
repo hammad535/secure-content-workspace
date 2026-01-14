@@ -13,15 +13,6 @@ const ProtectedRoute = ({ children }) => {
     setChecking(false);
   }, [initialized, initialize]);
 
-  useEffect(() => {
-    if (!checking && !isAuthenticated) {
-      const token = localStorage.getItem('token');
-      if (!token && initialized) {
-        return;
-      }
-    }
-  }, [checking, isAuthenticated, initialized]);
-
   if (checking) {
     return (
       <div className="flex items-center justify-center min-h-screen">
