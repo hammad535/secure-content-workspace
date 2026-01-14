@@ -27,7 +27,7 @@ Thumbs.db
 *.sublime-workspace
 
 # Prisma
-backend/prisma/migrations/
+# Note: migrations/ should be committed to git
 
 # Testing
 coverage/
