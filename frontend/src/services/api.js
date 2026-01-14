@@ -1,5 +1,4 @@
 import axios from 'axios';
-import useAuthStore from '../store/authStore';
 
 if (!import.meta.env.VITE_API_URL) {
   throw new Error('VITE_API_URL is not defined. Production build cannot continue.');
@@ -30,10 +29,7 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       const token = localStorage.getItem('token');
       if (token) {
-        console.warn('Received 401 response with valid token. Token may be expired or invalid.');
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        useAuthStore.getState().logout();
+        console.warn('Received 401 response. Token may be expired or invalid.');
       }
     }
     return Promise.reject(error);
